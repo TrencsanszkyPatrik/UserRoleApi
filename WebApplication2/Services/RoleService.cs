@@ -4,70 +4,68 @@ using WebApplication2.Models;
 using MySqlX.XDevAPI.Common;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace WebApplication2.Services
 {
-    public class UserService : IUser
+    public class RoleService : IRole
     {
 
         private readonly UserDbContext _context;
-        public UserService(UserDbContext context)
+        public RoleService(UserDbContext context)
         {
             _context = context;
         }
-        public async Task<object> AddNewUser(AddUserDto addUserDto)
+        public async Task<object> AddNewRole(AddRoleDto addRoleDto)
         {
-			try
-			{
+            try
+            {
                 var result = new ResultResponseDto();
-                
 
-                var user = new User
+                var role = new Role
                 {
                     Id = Guid.NewGuid(),
-                    Name = addUserDto.Name,
-                    Email = addUserDto.Email,
-                    Password = addUserDto.Password
+                    Name = addRoleDto.Name
                 };
 
-                
 
-                if (user != null)
+
+                if (role != null)
                 {
-                    await _context.Users.AddAsync(user);
+                    await _context.Roles.AddAsync(role);
                     await _context.SaveChangesAsync();
 
                     result.message = "Sikeres hozzáadás";
-                    result.result = user;
+                    result.result = role;
                     return result;
 
                 }
 
                 result.message = "Sikertelen hozzáadás";
-                result.result = user;
+                result.result = role;
                 return result;
             }
             catch (Exception ex)
-			{
-                 var result = new ResultResponseDto();
+            {
+                var result = new ResultResponseDto();
                 result.message = ex.Message;
                 result.result = null;
                 return result;
             }
-
         }
 
-        public Task<object> DeleteUser(Guid id)
+        public Task<object> DeleteRole(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<object> GetAllUser()
+        public async Task<object> GetAllRoles()
         {
+
             try
             {
                 var result = new ResultResponseDto();
                 result.message = "Sikeres lekérdezés";
-                result.result = await _context.Users.ToListAsync();
+                result.result = await _context.Roles.ToListAsync();
 
                 return result;
             }
@@ -78,14 +76,15 @@ namespace WebApplication2.Services
                 result.result = null;
                 return result;
             }
+
         }
 
-        public Task<object> GetUserById(Guid id)
+        public Task<object> GetRoleById(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<object> UpdateUser(Guid id, UpdateUserDto updateUserDto)
+        public Task<object> UpdateRole(Guid id, string roleName)
         {
             throw new NotImplementedException();
         }

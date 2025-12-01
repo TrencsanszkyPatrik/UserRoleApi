@@ -14,6 +14,8 @@ namespace WebApplication2
             builder.Services.AddDbContext<Models.UserDbContext>();  
             builder.Services.AddScoped<IUser,UserService>();
 
+            builder.Services.AddScoped<IRole, RoleService>();
+
             // Add services to the container.
 
             builder.Services.AddControllers();

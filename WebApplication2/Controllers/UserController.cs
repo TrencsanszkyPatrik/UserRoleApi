@@ -24,8 +24,12 @@ namespace WebApplication2.Controllers
             {
                 return StatusCode(404, await _user.AddNewUser(addUserDto));
             }
-            
+        }
 
+        [HttpGet]
+        public async Task<ActionResult> GetAllUser()
+        {
+            return StatusCode(200, await _user.GetAllUser());
         }
     }
 }
