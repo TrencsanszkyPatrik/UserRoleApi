@@ -1,4 +1,8 @@
 
+using WebApplication2.Models;
+using WebApplication2.Services;
+using WebApplication2.Services.IServices;
+
 namespace WebApplication2
 {
     public class Program
@@ -8,6 +12,7 @@ namespace WebApplication2
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddDbContext<Models.UserDbContext>();  
+            builder.Services.AddScoped<IUser,UserService>();
 
             // Add services to the container.
 

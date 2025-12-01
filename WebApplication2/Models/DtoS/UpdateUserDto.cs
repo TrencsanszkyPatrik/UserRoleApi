@@ -1,6 +1,6 @@
 ﻿namespace WebApplication2.Models.DtoS
 {
-    public class AddUserDto
+    public class UpdateUserDto
     {
         public string Name { get; set; }
         public string Email { get; set; }
