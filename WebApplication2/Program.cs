@@ -7,6 +7,8 @@ namespace WebApplication2
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddDbContext<Models.UserDbContext>();  
+
             // Add services to the container.
 
             builder.Services.AddControllers();

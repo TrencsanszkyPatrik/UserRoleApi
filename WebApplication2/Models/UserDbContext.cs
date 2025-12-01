@@ -16,5 +16,23 @@ namespace WebApplication2.Models
             optionsBuilder.UseMySQL("server=localhost;database=AuthUser;user=root;password=");
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<UserRole>()
+                .HasKey(ru => new { ru.UserId, ru.RoleId });
+
+            modelBuilder.Entity<UserRole>()
+                .HasOne(ru => ru.User)
+                .WithMany(u => u.UserRoles)
+                .HasForeignKey(ru => ru.UserId);
+
+            modelBuilder.Entity<UserRole>()
+                .HasOne(ru => ru.Role)
+                .WithMany(r => r.UserRoles)
+                .HasForeignKey(ru => ru.RoleId);
+        }
     }
+
+
 }
+
