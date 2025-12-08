@@ -1,13 +1,55 @@
-﻿using WebApplication2.Models.DtoS;
+﻿using System;
+using WebApplication2.Models.DtoS;
+using WebApplication2.Models;
 using WebApplication2.Services.IServices;
 
 namespace WebApplication2.Services
 {
     public class UserRoleService : IUserRole
     {
-        public Task<object> AddNewConnection(AddUserRoleDto addUserRoleDto)
+        private readonly UserDbContext _context;
+        public UserRoleService(UserDbContext context)
         {
-         
+            _context = context;
+        }
+        public async Task<object> AddNewConnection(AddUserRoleDto addUserRoleDto)
+        {
+            try
+            {
+                var result = new ResultResponseDto();
+
+                var userrole = new UserRole
+                {
+                    UserId = addUserRoleDto.UserId,
+                    RoleId = addUserRoleDto.RoleId
+                };
+
+                if (userrole != null)
+                {
+                    await _context.UserRoles.AddAsync(userrole);
+                    await _context.SaveChangesAsync();
+
+                    result.message = "Sikeres hozzáadás.";
+                    result.result = userrole;
+
+                    return result;
+                }
+
+                result.message = "Sikertelen hozzáadás.";
+                result.result = userrole;
+
+                return result;
+
+            }
+            catch (Exception ex)
+            {
+
+                var result = new ResultResponseDto();
+                result.message = ex.Message;
+                result.result = null;
+
+                return result;
+            }
         }
     }
 }

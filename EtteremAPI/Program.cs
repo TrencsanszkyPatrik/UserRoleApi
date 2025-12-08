@@ -1,25 +1,11 @@
 
-using System.Text.Json.Serialization;
-using WebApplication2.Models;
-using WebApplication2.Services;
-using WebApplication2.Services.IServices;
-
-namespace WebApplication2
+namespace EtteremAPI
 {
     public class Program
     {
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
-            builder.Services.AddDbContext<Models.UserDbContext>();  
-            builder.Services.AddScoped<IUser,UserService>();
-
-            builder.Services.AddScoped<IRole, RoleService>();
-
-            builder.Services.AddScoped<IUserRole, UserRoleService>();
-
-            builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
             // Add services to the container.
 
